@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">WebView</string>
+    <string name="dialog_yahoo_try_it">Try YAHOO!!</string>
 </resources>
