@@ -1,18 +1,22 @@
 package ru.flatspike.test
 
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.renderscript.ScriptGroup
+import androidx.appcompat.app.AppCompatActivity
 import ru.flatspike.test.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private val binding: ActivityMainBinding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        binding.webviewMain.loadUrl("https://google.com/")
-
-        setContentView(R.layout.activity_main)
+        binding.webviewMain.settings.javaScriptEnabled = true
+        binding.webviewMain.loadUrl("https://www.google.com/")
     }
 }
