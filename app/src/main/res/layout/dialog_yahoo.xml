@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:layout_gravity="center">
 
     <TextView
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:gravity="center"
-        android:background="@android:color/white"
+        android:background="@color/dialog_yahoo_background"
         android:text="@string/dialog_yahoo_try_it">
 
     </TextView>
