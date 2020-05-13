@@ -30,17 +30,17 @@ class TimerService : Service() {
     private val handler: Handler by lazy { Handler() }
     // all tasks should be running in the main thread, so we can use simple Set
     private val listeners: MutableSet<() -> Unit> = mutableSetOf()
-    private var isStarted = false
+    private var callback: Runnable? = null
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        if (!isStarted) {
+        if (callback == null) {
             val extras = intent.extras!!
             val delay = extras.getLong(DELAY)
             val period = extras.getLong(PERIOD)
 
-            isStarted = true
+            callback = ListenersNotifier(period)
 
-            handler.postDelayed(ListenersNotifier(period), delay)
+            handler.postDelayed(callback!!, delay)
         }
 
         return super.onStartCommand(intent, flags, startId)
@@ -49,7 +49,7 @@ class TimerService : Service() {
     override fun onBind(intent: Intent): IBinder? = LocalBinder()
 
     override fun onDestroy() {
-        handler.removeCallbacksAndMessages(null)
+        if (callback != null) handler.removeCallbacks(callback!!)
         listeners.clear()
     }
 
